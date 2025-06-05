@@ -281,19 +281,12 @@ async def start(update: Update, context: CallbackContext):
         [InlineKeyboardButton("📜 Help", callback_data="help")]
     ]
     banner = (
-        "╔═━━━━✦❘༻༺❘✦━━━━═╗
-"
-        "🌀 *KAYAKO_VIP_BOT* 🌀
-"
-        "『 Powered by Gojo Satoru 』
-"
-        "╚═━━━━✦❘༻༺❘✦━━━━═╝
-
-"
-        "⚔️ _“Throughout Heaven and Earth, I alone am the honored one.”_
-"
-        "🔥 Welcome, warrior. Pick your tool and dominate.
-"
+        "╔═━━━━✦❘༻༺❘✦━━━━═╗"
+        "🌀 *KAYAKO_VIP_BOT* 🌀"
+        "『 Powered by Gojo Satoru 』"
+        "╚═━━━━✦❘༻༺❘✦━━━━═╝"
+        "⚔️ _“Throughout Heaven and Earth, I alone am the honored one.”_"
+        "🔥 Welcome, warrior. Pick your tool and dominate."
     )
     await update.message.reply_text(banner, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
 
