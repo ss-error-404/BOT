@@ -1,3 +1,4 @@
+
 import os
 import json
 import random
@@ -17,7 +18,10 @@ LINES_TO_SEND = 100
 
 # === DOMAIN LIST ===
 DOMAINS = [
-    "100082", "mtacc", "garena", "roblox", "gaslite", "netflix", "spotify", "tiktok", "pubg", "steam", "facebook", "genshin", "instagram", "freefire", "disneyplus", "pornhub", "vivamax", "authgop", "8ball", "crossfire", "paypal", "onlyfans", "hulu", "telegram", "warzone", "discord", "linkedin", "microsoft", "yahoo", "gmail", "crypto", "binance", "visa", "coinbase", "hotmail", "twitch", "playstation", "nintendo", "xbox", "uber", "airbnb"
+    "100082", "mtacc", "garena", "roblox", "gaslite", "netflix", "spotify", "tiktok", "pubg", "steam", "facebook",
+    "genshin", "instagram", "freefire", "disneyplus", "pornhub", "vivamax", "authgop", "8ball", "crossfire", "paypal",
+    "onlyfans", "hulu", "telegram", "warzone", "discord", "linkedin", "microsoft", "yahoo", "gmail", "crypto",
+    "binance", "visa", "coinbase", "hotmail", "twitch", "playstation", "nintendo", "xbox", "uber", "airbnb"
 ]
 
 # === LOAD DATABASE ===
@@ -45,7 +49,7 @@ def check_user_access(chat_id):
 
     expiry = keys_data["user_keys"][chat_id]
     if expiry is not None and datetime.now().timestamp() > expiry:
-        del keys_data["user_keys"][chat_id]  # Remove expired key
+        del keys_data["user_keys"][chat_id]
         save_keys(keys_data)
         return False
 
@@ -56,10 +60,10 @@ async def generate_menu(update: Update, context: CallbackContext):
     chat_id = str(update.message.chat_id)
 
     if not check_user_access(chat_id):
-        return await update.message.reply_text("âŒ Kailangan mo ng valid na key,gago!")
+        return await update.message.reply_text("âŒ Kailangan mo ng valid na key, gago!")
 
     keyboard = [[InlineKeyboardButton(domain, callback_data=f"generate_{domain}")] for domain in DOMAINS]
-    await update.message.reply_text("ðŸ›  *Pumili ka,gago!*", reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
+    await update.message.reply_text("ðŸ›  *Pumili ka, gago!*", reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
 
 # === /SEARCH COMMAND ===
 async def search_command(update: Update, context: CallbackContext):
@@ -78,7 +82,7 @@ Example: /search 100082 10")
     except ValueError:
         return await update.message.reply_text("âŒ Invalid number of lines. Gamitin mo nang tama, gago!")
 
-    processing_msg = await update.message.reply_text("âš¡ *Pinoproseso...mag intay ka,gago!*", parse_mode="Markdown")
+    processing_msg = await update.message.reply_text("âš¡ *Pinoproseso...mag intay ka, gago!*", parse_mode="Markdown")
 
     try:
         with open(USED_ACCOUNTS_FILE, "r", encoding="utf-8", errors="ignore") as f:
@@ -134,13 +138,14 @@ Example: /search 100082 10")
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("search", search_command))
-    app.add_handler(CommandHandler("genkey", generate_key))
-    app.add_handler(CommandHandler("redeem", redeem))
-    app.add_handler(CommandHandler("delete", delete_user_key))
-    app.add_handler(CommandHandler("extend", extend_key))
-    app.add_handler(CommandHandler("status", status))
-    app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(CommandHandler("start", start))
+    # The following handlers must exist elsewhere in your code
+    # app.add_handler(CommandHandler("genkey", generate_key))
+    # app.add_handler(CommandHandler("redeem", redeem))
+    # app.add_handler(CommandHandler("delete", delete_user_key))
+    # app.add_handler(CommandHandler("extend", extend_key))
+    # app.add_handler(CommandHandler("status", status))
+    # app.add_handler(CommandHandler("help", help_command))
+    # app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("generate", generate_menu))
     print("ðŸ¤– Bot is running FAST...")
     app.run_polling()
