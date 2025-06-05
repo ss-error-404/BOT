@@ -313,6 +313,12 @@ def main():
     print("🤖 Bot is running FAST...")
     app.run_polling()
 
+from telegram import Update
+from telegram.ext import ContextTypes
+
+async def top_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("👑 Top Users feature coming soon!")
+
 if __name__ == "__main__":
     main()
     
