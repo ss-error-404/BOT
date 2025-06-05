@@ -73,7 +73,7 @@ async def search_command(update: Update, context: CallbackContext):
 
     if len(context.args) < 1:
         return await update.message.reply_text("⚠ Usage: /search <domain> <lines>")
-Example: /search 100082 10")
+        return await update.message.reply_text("⚠ Usage: /search <domain> <lines>\nExample: /search 100082 10")
 
     selected_domain = context.args[0].lower()
     try:
