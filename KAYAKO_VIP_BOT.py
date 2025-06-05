@@ -113,14 +113,11 @@ async def search_command(update: Update, context: CallbackContext):
         return await processing_msg.edit_text(f"âœ… No new results found for '{selected_domain}', you've seen all matches.")
 
     with open(USED_ACCOUNTS_FILE, "a", encoding="utf-8", errors="ignore") as f:
-        f.writelines("
-".join(raw_lines_to_append) + "
-")
+        f.writelines("".join(raw_lines_to_append) + "")
 
     filename = f"Search {selected_domain}.txt"
     with open(filename, "w", encoding="utf-8", errors="ignore") as f:
-        f.writelines("
-".join(matched_lines))
+        f.writelines("".join(matched_lines))
 
     await asyncio.sleep(1)
     await processing_msg.delete()
