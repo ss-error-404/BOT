@@ -8,8 +8,8 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputFi
 from telegram.ext import Application, CommandHandler, CallbackContext, CallbackQueryHandler
 
 # === CONFIGURATION ===
-TOKEN = ""
-ADMIN_ID = 
+TOKEN = "7557100850:AAEaaGRKsftleh9IYUAVHZ69dQjJJcolzBs"
+ADMIN_ID = 5814450434
 KEYS_FILE = "keys.json"
 DATABASE_FILES = ["logs1.txt", "logs2.txt", "logs3.txt", "logs4.txt", "logs5.txt", "logs6.txt"]
 USED_ACCOUNTS_FILE = "used_accounts.txt"
