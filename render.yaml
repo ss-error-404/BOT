@@ -1,0 +1,7 @@
+
+services:
+  - type: worker
+    name: kayakobot
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "bash start.sh"
