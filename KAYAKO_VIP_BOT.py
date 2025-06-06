@@ -97,8 +97,7 @@ async def search_command(update: Update, context: CallbackContext):
         return await processing_msg.edit_text(f"âœ… No new results found for '{selected_domain}', you've seen all matches.")
 
     with open(USED_ACCOUNTS_FILE, "a", encoding="utf-8", errors="ignore") as f:
-        f.write("
-".join(raw_lines_to_append) + "")
+        f.write("".join(raw_lines_to_append) + "")
 
     filename = f"Search_{selected_domain}.txt"
     with open(filename, "w", encoding="utf-8", errors="ignore") as f:
