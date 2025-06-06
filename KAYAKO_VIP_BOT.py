@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputFile
 from telegram.ext import Application, CommandHandler, CallbackContext
 
-TOKEN = "YOUR_BOT_TOKEN"
+TOKEN = "7581984748:AAHFpt58bRtaMp2oWJyS3L02SLDohbxjwT8"
 ADMIN_ID = 5814450434
 KEYS_FILE = "keys.json"
 DATABASE_FILES = ["logs1.txt", "logs2.txt", "logs3.txt", "logs4.txt", "logs5.txt", "logs6.txt"]
