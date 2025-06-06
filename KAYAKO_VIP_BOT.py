@@ -1,3 +1,4 @@
+
 import os
 import json
 import random
@@ -5,25 +6,24 @@ import asyncio
 import re
 from datetime import datetime, timedelta
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputFile
-from telegram.ext import Application, CommandHandler, CallbackContext, CallbackQueryHandler
+from telegram.ext import Application, CommandHandler, CallbackContext
 
-# === CONFIGURATION ===
-TOKEN = "7334052640:AAHvH13WuDkEOGy2ORqfimM1pYXOHAQkzP0"
+TOKEN = "YOUR_BOT_TOKEN"
 ADMIN_ID = 5814450434
 KEYS_FILE = "keys.json"
 DATABASE_FILES = ["logs1.txt", "logs2.txt", "logs3.txt", "logs4.txt", "logs5.txt", "logs6.txt"]
 USED_ACCOUNTS_FILE = "used_accounts.txt"
 LINES_TO_SEND = 100
 
-# === DOMAIN LIST ===
 DOMAINS = [
-    "100082", "mtacc", "garena", "roblox", "gaslite", "netflix", "spotify", "tiktok", "pubg", "steam", "facebook",
-    "genshin", "instagram", "freefire", "disneyplus", "pornhub", "vivamax", "authgop", "8ball", "crossfire", "paypal",
-    "onlyfans", "hulu", "telegram", "warzone", "discord", "linkedin", "microsoft", "yahoo", "gmail", "crypto",
-    "binance", "visa", "coinbase", "hotmail", "twitch", "playstation", "nintendo", "xbox", "uber", "airbnb"
+    "100082", "mtacc", "garena", "roblox", "gaslite", "netflix", "spotify", "tiktok",
+    "pubg", "steam", "facebook", "genshin", "instagram", "freefire", "disneyplus",
+    "pornhub", "vivamax", "authgop", "8ball", "crossfire", "paypal", "onlyfans",
+    "hulu", "telegram", "warzone", "discord", "linkedin", "microsoft", "yahoo",
+    "gmail", "crypto", "binance", "visa", "coinbase", "hotmail", "twitch",
+    "playstation", "nintendo", "xbox", "uber", "airbnb"
 ]
 
-# === LOAD DATABASE ===
 if not os.path.exists(USED_ACCOUNTS_FILE):
     open(USED_ACCOUNTS_FILE, "w").close()
 
@@ -36,25 +36,20 @@ def save_keys(data):
 
 keys_data = load_keys()
 
-# === URL REMOVER FUNCTION ===
 def remove_url_and_keep_user_pass(line):
     match = re.search(r'([^:]+:[^:]+)$', line.strip())
     return match.group(1) if match else None
 
-# === CHECK USER ACCESS ===
 def check_user_access(chat_id):
     if chat_id not in keys_data["user_keys"]:
         return False
-
     expiry = keys_data["user_keys"][chat_id]
     if expiry is not None and datetime.now().timestamp() > expiry:
         del keys_data["user_keys"][chat_id]
         save_keys(keys_data)
         return False
-
     return True
 
-# === /SEARCH COMMAND ===
 async def search_command(update: Update, context: CallbackContext):
     chat_id = str(update.message.chat_id)
 
@@ -62,8 +57,7 @@ async def search_command(update: Update, context: CallbackContext):
         return await update.message.reply_text("âŒ Kailangan mo ng valid na key, gago!")
 
     if len(context.args) < 1:
-        return await update.message.reply_text("âš  Usage: /search <domain> <lines>
-Example: /search 100082 10")
+        return await update.message.reply_text("⚠ Usage: /search <domain> <lines>\nExample: /search 100082 10")
 
     selected_domain = context.args[0].lower()
     try:
@@ -104,13 +98,11 @@ Example: /search 100082 10")
 
     with open(USED_ACCOUNTS_FILE, "a", encoding="utf-8", errors="ignore") as f:
         f.write("
-".join(raw_lines_to_append) + "
-")
+".join(raw_lines_to_append) + "")
 
     filename = f"Search_{selected_domain}.txt"
     with open(filename, "w", encoding="utf-8", errors="ignore") as f:
-        f.write("
-".join(matched_lines))
+        f.write("".join(matched_lines))
 
     await asyncio.sleep(1)
     await processing_msg.delete()
@@ -123,7 +115,6 @@ Example: /search 100082 10")
 
     os.remove(filename)
 
-# === BOT SETUP ===
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("search", search_command))
